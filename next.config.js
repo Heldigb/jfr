@@ -6,5 +6,8 @@ module.exports = {
         console.log(options.webpack.version); // 5.18.0
         config.experiments = {};
         return config;
-    }
+    },
+    images: {
+        domains: ['localhost'],
+    },
 };
