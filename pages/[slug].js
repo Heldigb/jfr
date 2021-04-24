@@ -1,27 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Post({post}) {
-
-    const imgUrl = post.featuredImage?.node.sourceUrl
+export default function Post({data}) {
+    const {page} = data
+    const imgUrl = page.featuredImage?.node.sourceUrl
     return (
         <div>
             <Link href={`/`}> TO HOME</Link>
             {imgUrl && <Image width="300" height="420" src={imgUrl}/> }
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
+            <h1>{page.title}</h1>
+            <p>{page.content}</p>
         </div>
     );
 };
 
 export async function getStaticProps(context) {
+
+    console.log(context)
+
     const res = await fetch('http://localhost/jfr/graphql', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             query: `
-                query SinglePost($id: ID!, $idType: PostIdType!) {
-                    post(id: $id, idType: $idType) {
+                query SinglePage($id: ID!){
+                    page(id: $id, idType: URI) {
                         title
                         slug
                         content
@@ -34,17 +37,18 @@ export async function getStaticProps(context) {
                 }
             `,
             variables: {
-                id: context.params.slug,
-                idType: 'SLUG'
+                id:  context.params.slug,
             }
         })
     })
 
+
+    console.log(context.params.slug)
     const json = await res.json()
 
     return {
         props: {
-            post: json.data.post,
+            data: json.data,
         },
     }
 }
@@ -57,17 +61,12 @@ export async function getStaticPaths() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             query: `
-            query AllPostsQuery {
-                posts {
+            query AllPagesQuery {
+                pages {
                     nodes {
                         slug
                         content
                         title
-                        featuredImage {
-                            node {
-                                sourceUrl
-                            }
-                        }
                     }
                 }
             }
@@ -76,12 +75,12 @@ export async function getStaticPaths() {
     })
 
     const json = await res.json()
-    const posts = json.data.posts.nodes;
+    const pages = json.data.pages.nodes;
 
-    const paths = posts.map((post) => ({
-        params: {slug: post.slug},
+    const paths = pages.map((page) => ({
+        params: {slug: page.slug.toString()},
     }))
-
+console.log(pages)
     return {paths, fallback: false}
 
 }
