@@ -1,22 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
+import {PageContentWrapper,ContentText} from "@/components/Layout/Content/styles";
 
 export default function Post({data}) {
     const {page} = data
     const imgUrl = page.featuredImage?.node.sourceUrl
     return (
-        <div>
-            <Link href={`/`}> TO HOME</Link>
-            {imgUrl && <Image width="300" height="420" src={imgUrl}/> }
-            <h1>{page.title}</h1>
-            <p>{page.content}</p>
-        </div>
+        <PageContentWrapper>
+
+            <ContentText>
+                <h1>{page.title}</h1>
+                <p>{page.content}</p>
+            </ContentText>
+
+
+            {imgUrl && <Image  width="700" height="700" src={imgUrl}/> }
+        </PageContentWrapper>
     );
 };
 
 export async function getStaticProps(context) {
-
-    console.log(context)
 
     const res = await fetch('http://localhost/jfr/graphql', {
         method: 'POST',
@@ -42,8 +45,6 @@ export async function getStaticProps(context) {
         })
     })
 
-
-    console.log(context.params.slug)
     const json = await res.json()
 
     return {
@@ -55,7 +56,6 @@ export async function getStaticProps(context) {
 
 
 export async function getStaticPaths() {
-
     const res = await fetch('http://localhost/jfr/graphql', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -67,6 +67,11 @@ export async function getStaticPaths() {
                         slug
                         content
                         title
+                        featuredImage {
+                        node {
+                          sourceUrl
+                        }
+                      }
                     }
                 }
             }
@@ -80,7 +85,5 @@ export async function getStaticPaths() {
     const paths = pages.map((page) => ({
         params: {slug: page.slug.toString()},
     }))
-console.log(pages)
     return {paths, fallback: false}
-
 }

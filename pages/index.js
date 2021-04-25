@@ -1,26 +1,14 @@
 // import Head from 'next/head'
 // import styles from '../styles/Home.module.css'
 import Link from "next/link";
-const url = process.env.WORDPRESS_LOCAL_API_URL
-
+import {ContentList} from "@/components/ContentList";
 
 export default function Home({posts}) {
-    console.log(posts)
     const allPosts = posts.nodes
     return (
-        <div>
-            Hi
-            <div>
-                {allPosts.map((post) =>
-                    <div>
-                        <h2>{post.title}</h2>
-                        <div>{post.content}</div>
-                        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                    </div>
-                    )
-                }
-            </div>
-        </div>
+
+                <ContentList data={allPosts}/>
+
         // <div className={styles.container}>
         //   <Head>
         //     <title>Create Next App</title>
@@ -96,6 +84,11 @@ export async function getStaticProps() {
                       slug
                       title
                       content
+                        featuredImage {
+                            node {
+                                sourceUrl
+                            }
+                        }
                     }
                   }
                 }

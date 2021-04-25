@@ -1,16 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
+import {ContentText, PageContentWrapper} from "@/components/Layout/Content/styles";
 
 export default function Post({post}) {
 
     const imgUrl = post.featuredImage?.node.sourceUrl
     return (
-        <div>
-            <Link href={`/`}> TO HOME</Link>
-            {imgUrl && <Image width="300" height="420" src={imgUrl}/> }
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
-        </div>
+        <PageContentWrapper>
+
+            <ContentText>
+                {/*<Link href={`/`}> TO HOME</Link>*/}
+                <h1>{post.title}</h1>
+                <p>{post.content}</p>
+            </ContentText>
+
+
+            {imgUrl && <Image width="700" height="700" src={imgUrl}/> }
+        </PageContentWrapper>
     );
 };
 
