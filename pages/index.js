@@ -73,7 +73,7 @@ export default function Home({posts}) {
 
 export async function getStaticProps() {
 
-    const res = await fetch("http://localhost/jfr/graphql", {
+    const res = await fetch("https://lejeanf.com/jfr/graphql", {
         method: "POST",
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({

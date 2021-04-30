@@ -1,5 +1,5 @@
  async function handler()  {
-    const response = await fetch('http://localhost/jfr/graphql', {
+    const response = await fetch('https://lejeanf.com/jfr/graphql', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
