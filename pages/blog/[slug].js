@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
 import {ContentText, PageContentWrapper} from "@/components/Layout/Content/styles";
 
 export default function Post({post}) {
@@ -7,15 +6,11 @@ export default function Post({post}) {
     const imgUrl = post.featuredImage?.node.sourceUrl
     return (
         <PageContentWrapper>
-
             <ContentText>
-                {/*<Link href={`/`}> TO HOME</Link>*/}
                 <h1>{post.title}</h1>
                 <p>{post.content}</p>
             </ContentText>
-
-
-            {imgUrl && <Image width="700" height="700" src={imgUrl}/> }
+            {imgUrl && <img  width="700" height="700" src={imgUrl}/> }
         </PageContentWrapper>
     );
 };
@@ -45,9 +40,7 @@ export async function getStaticProps(context) {
             }
         })
     })
-
     const json = await res.json()
-
     return {
         props: {
             post: json.data.post,

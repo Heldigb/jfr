@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {ContentListItemWrapper, Text, ContentListItemContainer, ImageWrapper} from '../styles'
-import Image from "next/image";
-import {PageContentWrapper} from "@/components/Layout/Content/styles";
+// import Image from "next/image";
 
 export const ContentListItem = ({content}) => {
 
@@ -23,7 +22,7 @@ export const ContentListItem = ({content}) => {
 
                 </ContentListItemWrapper>
                 <ImageWrapper>
-                    {imgUrl && <Image width="auto" height="250" src={imgUrl}/>}
+                    {imgUrl && <img  width="auto" height="250" src={imgUrl}/>}
                 </ImageWrapper>
             </ContentListItemContainer>
 

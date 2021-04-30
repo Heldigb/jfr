@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 import {PageContentWrapper,ContentText} from "@/components/Layout/Content/styles";
 
 export default function Post({data}) {
@@ -14,7 +14,7 @@ export default function Post({data}) {
             </ContentText>
 
 
-            {imgUrl && <Image  width="700" height="700" src={imgUrl}/> }
+            {imgUrl && <img  width="700" height="700" src={imgUrl}/> }
         </PageContentWrapper>
     );
 };
