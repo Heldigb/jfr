@@ -1,5 +1,5 @@
 export default async (req, res) => {
-    const data = await fetch('https://lejeanf.com/jfr/graphql', {
+    const data = await fetch('https://lejeanf.com/api/graphql', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
