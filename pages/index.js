@@ -2,12 +2,16 @@
 // import styles from '../styles/Home.module.css'
 import Link from "next/link";
 import {ContentList} from "@/components/ContentList";
-
+import {HomePage} from  "@/components/HomePage";
 export default function Home({posts}) {
     const allPosts = posts.nodes
     return (
 
-                <ContentList data={allPosts}/>
+        <HomePage  data={allPosts}>
+            <p>sd</p>
+        </HomePage>
+
+                // <ContentList data={allPosts}/>
 
         // <div className={styles.container}>
         //   <Head>
@@ -73,7 +77,7 @@ export default function Home({posts}) {
 
 export async function getStaticProps() {
 
-    const res = await fetch("https://lejeanf.com/api/graphql", {
+    const res = await fetch("https://webexpress.dk/graphql", {
         method: "POST",
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({

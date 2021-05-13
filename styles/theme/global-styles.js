@@ -15,15 +15,20 @@ export const globalStyles = (
       li,
       p {
         padding: 0;
+          font-weight: lighter;
+          line-height: 1.4rem;
         margin: 0;
       }
-
+        html {
+          scroll-behavior: smooth;
+        }
       html,
       body {
         line-height: ${theme.lineHeight};
         background: white;
         min-height: 100vh;
-        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        //font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
         padding: 0;
         margin: 0;
       }

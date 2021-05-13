@@ -1,30 +1,26 @@
 import Link from "next/link";
 import {ContentListItemWrapper, Text, ContentListItemContainer, ImageWrapper} from '../styles'
-// import Image from "next/image";
+import { Markup } from 'interweave';
+
 
 export const ContentListItem = ({content}) => {
 
-
     const imgUrl = content.featuredImage?.node.sourceUrl
     return (
+        <ContentListItemContainer>
 
-            <ContentListItemContainer>
-                <ContentListItemWrapper>
+            <ImageWrapper>
+                {imgUrl && <img width="auto" height="250" src={imgUrl}/>}
+            </ImageWrapper>
+            <ContentListItemWrapper>
+                <Text>
+                    <h2>{content.title}</h2>
+                    <Markup  content={content.content} />
+                </Text>
+                <Link href={`/blog/${content.slug}`}>Read more...</Link>
+            </ContentListItemWrapper>
 
-
-                    <Text>
-                        <h2>{content.title}</h2>
-                        <p>{content.content}</p>
-                    </Text>
-
-                    <Link href={`/blog/${content.slug}`}>Read more...</Link>
-
-
-                </ContentListItemWrapper>
-                <ImageWrapper>
-                    {imgUrl && <img  width="auto" height="250" src={imgUrl}/>}
-                </ImageWrapper>
-            </ContentListItemContainer>
+        </ContentListItemContainer>
 
     );
 };

@@ -3,7 +3,7 @@ import Link from "next/link";
 // BaseLayout
 
 export const NavContainer = styled('div')`
-  background: #e0dede;
+
   width: 20%;
   padding: 40px;
   height: 100%;

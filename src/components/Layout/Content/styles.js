@@ -4,8 +4,7 @@ import styled from '@emotion/styled'
 export const ContentWrapper = styled('div')`
   display: flex;
   width: 100%;
-  padding: 40px;
-  background: #0070f3;
+  background: #221717;
 `
 
 export const PageContentWrapper = styled('div')`

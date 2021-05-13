@@ -14,9 +14,12 @@ function MyApp({Component, pageProps}) {
             <ThemeProvider theme={theme}>
                 <BaseLayout>
                     <Nav/>
+
                     <Content>
                         <Component {...pageProps} />
                     </Content>
+
+
                 </BaseLayout>
             </ThemeProvider>
         </>
