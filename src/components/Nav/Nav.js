@@ -1,10 +1,9 @@
 import Link from "next/link";
 import useSWR from "swr";
 import {NavItem} from "@/components/Nav/NavItem";
-import {NavContainer} from './styles'
+import {NavContainer, Logo} from './styles'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
-
 
 export const Nav = () => {
     // const {data} = useSWR('/api/pages', fetcher)
@@ -13,12 +12,11 @@ export const Nav = () => {
     // const navItems = data?.nodes
 
     const navItems = [
-
         {
             slug: "projects", title: "Projects"
         },
         {
-            slug: "about", title: "About"
+            slug: "home", title: "Home", logo: true
         },
         {
             slug: "contact", title: "Contact"
@@ -26,10 +24,13 @@ export const Nav = () => {
     ]
     return (
         <NavContainer>
-            Menu
-            <NavItem href={`/`} title={'Home'}/>
+            {/*<NavItem href={`/`} title={'Home'}/>*/}
             {navItems.map((item) =>
-                <NavItem href={`/${item.slug}`} title={item.title}/>
+
+                <>
+                    {item.logo &&  <Logo>  <Link href={'/'}>JFR </Link></Logo>||
+                    <NavItem href={`/${item.slug}`} title={item.title} logo={!!item.logo}/>}
+                </>
             )
             }
         </NavContainer>

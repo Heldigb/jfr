@@ -10,7 +10,7 @@ export const ContentListItem = ({content}) => {
         <ContentListItemContainer>
 
             <ImageWrapper>
-                {imgUrl && <img width="auto" height="250" src={imgUrl}/>}
+                {imgUrl && <img width="auto" height="250" src={imgUrl} />}
             </ImageWrapper>
             <ContentListItemWrapper>
                 <Text>

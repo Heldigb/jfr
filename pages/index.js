@@ -2,13 +2,14 @@
 // import styles from '../styles/Home.module.css'
 import Link from "next/link";
 import {ContentList} from "@/components/ContentList";
-import {HomePage} from  "@/components/HomePage";
+import {HomePage} from "../src/pages/HomePage";
+
 export default function Home({posts}) {
     const allPosts = posts.nodes
     return (
 
         <HomePage  data={allPosts}>
-            <p>sd</p>
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto maxime natus nobis rem sunt tempore voluptatem! Ab adipisci blanditiis culpa debitis, dolor excepturi exercitationem id laboriosam, laborum, repudiandae voluptatem?
         </HomePage>
 
                 // <ContentList data={allPosts}/>

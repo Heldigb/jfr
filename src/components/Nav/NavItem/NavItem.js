@@ -1,10 +1,9 @@
-
 import {NavItemWrapper, NavLink} from './styles'
 
-export const NavItem = ({title,href}) => {
+export const NavItem = ({title,href,logo}) => {
     return (
         <NavItemWrapper>
-            <NavLink href={href}>{title}</NavLink>
+            <NavLink logo={logo} href={href}>{title}</NavLink>
         </NavItemWrapper>
     );
 };

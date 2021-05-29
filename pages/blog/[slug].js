@@ -1,16 +1,30 @@
-// import Image from "next/image";
-import {ContentText, PageContentWrapper} from "@/components/Layout/Content/styles";
+import {ContentText, PageContentWrapper, ImageContainer} from "@/components/Layout/Content/styles";
+import {Markup} from "interweave";
+import {CustomRenderThumb, Text} from "@/components/ContentList/styles";
+import {Scrollbars} from "react-custom-scrollbars";
 
 export default function Post({post}) {
 
     const imgUrl = post.featuredImage?.node.sourceUrl
     return (
         <PageContentWrapper>
+
+            <ImageContainer>
+                {imgUrl && <img  width="700" height="700" src={imgUrl} alt={content.title}/> }
+            </ImageContainer>
+
             <ContentText>
-                <h1>{post.title}</h1>
-                <p>{post.content}</p>
+                {/*<Scrollbars  universal={true}*/}
+                {/*             renderTrackHorizontal={() => <div />}*/}
+                {/*             renderThumbHorizontal={() => <div />}*/}
+                {/*             renderThumbVertical={() => <CustomRenderThumb /> }*/}
+                {/*>*/}
+                {/*    <Text>*/}
+                {/*        <h2>{content.title}</h2>*/}
+                {/*        <Markup  content={content.content} />*/}
+                {/*    </Text>*/}
+                {/*</Scrollbars>*/}
             </ContentText>
-            {imgUrl && <img  width="700" height="700" src={imgUrl}/> }
         </PageContentWrapper>
     );
 };

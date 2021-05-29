@@ -1,20 +1,46 @@
 // import Image from "next/image";
 // import Link from "next/link";
-import {PageContentWrapper,ContentText} from "@/components/Layout/Content/styles";
+import {
+    PageContentWrapper,
+    ContentText,
+    ImageContainer,
+    ImageWrapper,
+    ContentWrapper
+} from "@/components/Layout/Content/styles";
+import {CustomRenderThumb, Text} from "@/components/ContentList/styles";
+import {Markup} from "interweave";
+import {Scrollbars} from "react-custom-scrollbars";
+import {ContentList} from "@/components/ContentList";
 
 export default function Post({data}) {
     const {page} = data
     const imgUrl = page.featuredImage?.node.sourceUrl
     return (
         <PageContentWrapper>
+            <ImageContainer>
+                <ImageWrapper style={{background: `url(${imgUrl})`}}>
+
+                </ImageWrapper>
+            </ImageContainer>
 
             <ContentText>
-                <h1>{page.title}</h1>
-                <p>{page.content}</p>
+                <Scrollbars  universal={true}
+                             renderTrackHorizontal={() => <div />}
+                             renderThumbHorizontal={() => <div />}
+                             renderThumbVertical={() => <CustomRenderThumb /> }
+                >
+
+                    {/*{page.slug === "projects" &&*/}
+                    {/*<ContentList/>*/}
+                    {/*}*/}
+                <Text>
+                    <h2>{page.title}</h2>
+                    <Markup  content={page.content} />
+                </Text>
+                </Scrollbars>
             </ContentText>
 
 
-            {imgUrl && <img  width="700" height="700" src={imgUrl}/> }
         </PageContentWrapper>
     );
 };
@@ -67,6 +93,7 @@ export async function getStaticPaths() {
                         slug
                         content
                         title
+                        pageId
                         featuredImage {
                         node {
                           sourceUrl
@@ -79,8 +106,18 @@ export async function getStaticPaths() {
         })
     })
 
+    const pageId = {
+        story: 4489,
+        projects: 4502,
+        contact: 4505
+    }
+
     const json = await res.json()
     const pages = json.data.pages.nodes;
+    const pagesIdList = Object.values(pages).map((x)=> {
+        console.log(x)
+    })
+console.log(pagesIdList)
 
     const paths = pages.map((page) => ({
         params: {slug: page.slug.toString()},

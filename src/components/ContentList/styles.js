@@ -11,14 +11,15 @@ export const ContentListItemWrapper = styled('div')`
   display: flex;
   width: 70%;
   flex-direction: column;
-  min-height: 250px;
-  justify-content: space-between;
-  padding:100px;
 `
 
 export const Text = styled('div')`
-  margin-bottom: 2rem;
-  //color: #fafafa;
+  min-height: 80vh;
+  padding: 50px;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 export const ContentListItemContainer = styled('div')`
@@ -36,10 +37,7 @@ export const ImageWrapper = styled('div')`
   height: auto;
   filter: invert(1);
   opacity: 1;
-  img{
-    height: auto;
-    width: 100%;
-  }
+
 `
 
 export const CustomRenderThumb = styled.div`
