@@ -4,7 +4,7 @@ import {CustomRenderThumb, Text} from "@/components/ContentList/styles";
 import {Scrollbars} from "react-custom-scrollbars";
 
 export default function Post({post}) {
-
+    const {content} = post
     const imgUrl = post.featuredImage?.node.sourceUrl
     return (
         <PageContentWrapper>
@@ -14,16 +14,16 @@ export default function Post({post}) {
             </ImageContainer>
 
             <ContentText>
-                {/*<Scrollbars  universal={true}*/}
-                {/*             renderTrackHorizontal={() => <div />}*/}
-                {/*             renderThumbHorizontal={() => <div />}*/}
-                {/*             renderThumbVertical={() => <CustomRenderThumb /> }*/}
-                {/*>*/}
-                {/*    <Text>*/}
-                {/*        <h2>{content.title}</h2>*/}
-                {/*        <Markup  content={content.content} />*/}
-                {/*    </Text>*/}
-                {/*</Scrollbars>*/}
+                <Scrollbars  universal={true}
+                             renderTrackHorizontal={() => <div />}
+                             renderThumbHorizontal={() => <div />}
+                             renderThumbVertical={() => <CustomRenderThumb /> }
+                >
+                    <Text>
+                        <h2>{content.title}</h2>
+                        <Markup  content={content.content} />
+                    </Text>
+                </Scrollbars>
             </ContentText>
         </PageContentWrapper>
     );

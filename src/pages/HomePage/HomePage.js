@@ -13,7 +13,7 @@ export const HomePage = ({data}) => {
             </Text>
 
             <CtaBtnWrapper>
-                <CtaBtn>Explore</CtaBtn>
+                {/*<CtaBtn>Explore</CtaBtn>*/}
             </CtaBtnWrapper>
         </HomePageContainer>
     );

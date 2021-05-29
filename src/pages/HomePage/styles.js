@@ -21,6 +21,13 @@ export const Text = styled.h3`
   width: 70%;
   padding: 0 30px;
   font-weight: 600;
+  @media all and (max-width: 1024px) {
+    max-width: 100%;
+    width: 100%;
+    font-size: 2.2rem;
+    padding: 0 25px;
+    line-height: 2.7rem;
+  }
 `
 
 export const CtaBtn = styled.button`

@@ -1,46 +1,117 @@
-// import Image from "next/image";
+import {useState} from "react";
+
 // import Link from "next/link";
 import {
     PageContentWrapper,
     ContentText,
     ImageContainer,
     ImageWrapper,
-    ContentWrapper
+    ContentWrapper,
+    ListWrap
 } from "@/components/Layout/Content/styles";
 import {CustomRenderThumb, Text} from "@/components/ContentList/styles";
 import {Markup} from "interweave";
 import {Scrollbars} from "react-custom-scrollbars";
-import {ContentList} from "@/components/ContentList";
+import {useRouter} from 'next/router'
+import {MapBlog} from "@/components/MapBlog";
 
-export default function Post({data}) {
+import {useBreakpoints} from "@/utils/useBreakpoints";
+import {ContentListItem} from "@/components/ContentList/ContentListItem";
+import {GalleryWrapper} from "@/components/MapBlog/styles";
+
+
+export const ScrollWrapper = ({children}) => {
+
+
+    return (
+        <Scrollbars
+            autoHide
+            // Hide delay in ms
+            autoHideTimeout={1000}
+            // Duration for hide animation in ms.
+            autoHideDuration={200}
+            universal={true}
+            renderTrackHorizontal={() => <div/>}
+            renderThumbHorizontal={() => <div/>}
+            renderThumbVertical={() => <CustomRenderThumb/>}
+        >
+
+            {/*{page.slug === "projects" &&*/}
+            {/*<ContentList/>*/}
+            {/*}*/}
+            {children}
+        </Scrollbars>
+    )
+}
+
+export default function Post({data, posts}) {
+    const allPosts = posts.nodes
+    const [selectedItem, setSelectedItem] = useState()
+
     const {page} = data
     const imgUrl = page.featuredImage?.node.sourceUrl
+    const point = useBreakpoints();
+
+    const sizes = ['md', 'sm', 'xs']
+    const isMd = Boolean(sizes.includes(point))
+
+    const router = useRouter()
+    const {slug} = router.query
+
+    const isProjects = Boolean(slug === 'projects')
+
+    const selectItemHandler = (itemId) => {
+        if (itemId && isProjects) {
+            setSelectedItem(itemId)
+        }
+    }
+
+    const filteredData = allPosts.filter(x => x.id === selectedItem)[0] ?? page
+
     return (
         <PageContentWrapper>
-            <ImageContainer>
-                <ImageWrapper style={{background: `url(${imgUrl})`}}>
+            <GalleryWrapper >
+            {isProjects && selectedItem &&
+            <MapBlog data={allPosts} selectedItem={selectedItem}/> ||
+                <ImageWrapper style={{
+                backgroundRepeat: ' no-repeat',
+                backgroundSize: 'cover', background: `url(${imgUrl})`
+            }}/>
 
-                </ImageWrapper>
-            </ImageContainer>
-
+            }
+            </GalleryWrapper>
+            {/*{!isProjects && imgUrl && !isMd &&*/}
+            {/*<ImageContainer>*/}
+            {/*    <ImageWrapper style={{*/}
+            {/*        backgroundRepeat: ' no-repeat',*/}
+            {/*        backgroundSize: 'cover',*/}
+            {/*        background: `url(${imgUrl})`*/}
+            {/*    }}/>*/}
+            {/*</ImageContainer>*/}
+            {/*}*/}
             <ContentText>
-                <Scrollbars  universal={true}
-                             renderTrackHorizontal={() => <div />}
-                             renderThumbHorizontal={() => <div />}
-                             renderThumbVertical={() => <CustomRenderThumb /> }
-                >
+                <ScrollWrapper>
+                    {!selectedItem && isMd &&
+                    <ImageContainer>
+                        <ImageWrapper style={{
+                            backgroundRepeat: ' no-repeat',
+                            backgroundSize: 'cover',
+                            background: `url(${imgUrl})`
+                        }}/>
+                    </ImageContainer>}
+                    <Text>
+                        <ListWrap>
+                            {isProjects && allPosts.map((item) =>
+                                <ContentListItem selectedItem={selectedItem} key={item.id} content={item}
+                                                 selectItem={selectItemHandler}/>
+                            )}
+                        </ListWrap>
 
-                    {/*{page.slug === "projects" &&*/}
-                    {/*<ContentList/>*/}
-                    {/*}*/}
-                <Text>
-                    <h2>{page.title}</h2>
-                    <Markup  content={page.content} />
-                </Text>
-                </Scrollbars>
+                        <h2>{filteredData.title}</h2>
+                        <Markup content={filteredData.content}/>
+                    </Text>
+                </ScrollWrapper>
             </ContentText>
-
-
         </PageContentWrapper>
     );
 };
@@ -66,16 +137,43 @@ export async function getStaticProps(context) {
                 }
             `,
             variables: {
-                id:  context.params.slug,
+                id: context.params.slug,
             }
         })
     })
 
+    const posts = await fetch('https://webexpress.dk/graphql', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            query: `
+            query AllPostsQuery {
+                posts {
+                    nodes {
+                        id
+                        slug
+                        content
+                        title
+                        featuredImage {
+                            node {
+                                id
+                                sourceUrl
+                            }
+                        }
+                    }
+                }
+            }
+        `
+        })
+    })
+
+    const postList = await posts.json()
     const json = await res.json()
 
     return {
         props: {
             data: json.data,
+            posts: postList.data.posts
         },
     }
 }
@@ -114,10 +212,10 @@ export async function getStaticPaths() {
 
     const json = await res.json()
     const pages = json.data.pages.nodes;
-    const pagesIdList = Object.values(pages).map((x)=> {
+    const pagesIdList = Object.values(pages).map((x) => {
         console.log(x)
     })
-console.log(pagesIdList)
+    console.log(pagesIdList)
 
     const paths = pages.map((page) => ({
         params: {slug: page.slug.toString()},

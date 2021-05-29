@@ -20,15 +20,29 @@ export const Text = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media all and (max-width: 1280px) {
+    padding: 32px;
+  }
 `
 
-export const ContentListItemContainer = styled('div')`
+export const ContentListItemContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  //border: 1px solid #000000;
-  //margin: 50px 0;
-  //background-color: #110a0a;
+  width: 20%;
+  padding: 2%  2%  2% 0;
+  margin-right: 1%;
+  cursor: pointer;
+  height: 80px;
+  ${({active}) => active && `
+  border-bottom: 1px solid red;
+     p {
+      color: red;
+    }
+  `}
+  &:hover {
+    p {
+      color: red;
+    }
+  }
 `
 
 export const ImageWrapper = styled('div')`
@@ -37,14 +51,13 @@ export const ImageWrapper = styled('div')`
   height: auto;
   filter: invert(1);
   opacity: 1;
-
 `
 
 export const CustomRenderThumb = styled.div`
   position: relative;
   display: block;
   height: 100%;
-  background: #fafafa;
+  background: #241818;
   border-radius: 8px;
 `
 

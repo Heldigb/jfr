@@ -1,5 +1,4 @@
-// import Head from 'next/head'
-// import styles from '../styles/Home.module.css'
+import Head from 'next/head'
 import Link from "next/link";
 import {ContentList} from "@/components/ContentList";
 import {HomePage} from "../src/pages/HomePage";
@@ -7,18 +6,19 @@ import {HomePage} from "../src/pages/HomePage";
 export default function Home({posts}) {
     const allPosts = posts.nodes
     return (
+        <>
+        <Head>
+            <title>JFR - home page</title>
+            <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-        <HomePage  data={allPosts}>
-         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus architecto maxime natus nobis rem sunt tempore voluptatem! Ab adipisci blanditiis culpa debitis, dolor excepturi exercitationem id laboriosam, laborum, repudiandae voluptatem?
-        </HomePage>
+        <HomePage  data={allPosts}/>
 
-                // <ContentList data={allPosts}/>
+        </>
+
 
         // <div className={styles.container}>
-        //   <Head>
-        //     <title>Create Next App</title>
-        //     <link rel="icon" href="/favicon.ico" />
-        //   </Head>
+
         //
         //   <main className={styles.main}>
         //     <h1 className={styles.title}>

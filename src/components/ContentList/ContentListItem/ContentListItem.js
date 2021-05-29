@@ -3,25 +3,20 @@ import {ContentListItemWrapper, Text, ContentListItemContainer, ImageWrapper} fr
 import { Markup } from 'interweave';
 
 
-export const ContentListItem = ({content}) => {
+export const ContentListItem = ({content,selectItem,selectedItem}) => {
+    const postId = content.id
 
-    const imgUrl = content.featuredImage?.node.sourceUrl
+    const handleOnHover = () => {
+        selectItem(postId)
+    }
+
+    const isActive = Boolean(selectedItem === content.id )
     return (
-        <ContentListItemContainer>
-
-            <ImageWrapper>
-                {imgUrl && <img width="auto" height="250" src={imgUrl} />}
-            </ImageWrapper>
-            <ContentListItemWrapper>
-                <Text>
-                    <h2>{content.title}</h2>
-                    <Markup  content={content.content} />
-                </Text>
-                <Link href={`/blog/${content.slug}`}>Read more...</Link>
-            </ContentListItemWrapper>
-
+        <ContentListItemContainer onClick={handleOnHover} active={isActive}>
+                    {/*<Markup   content={content.content} />*/}
+                {/*<Link href={`/blog/${content.slug}`}>{content.title}</Link>*/}
+            <p>{content.title} </p>
         </ContentListItemContainer>
-
     );
 };
 
