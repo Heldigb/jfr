@@ -5,7 +5,7 @@ import {globalStyles} from "@/theme/global-styles"
 import {BaseLayout} from "@/components/Layout/styles"
 import {Nav} from "@/components/Nav/Nav";
 import {Content} from "@/components/Layout/Content";
-// import {VideoBg} from "@/components/VideoBg";
+// import {Visuals} from "@/components/Visuals";
 import {Footer} from "@/components/Layout/Footer";
 
 function MyApp({Component, pageProps}) {
@@ -15,7 +15,7 @@ function MyApp({Component, pageProps}) {
             <ThemeProvider theme={theme}>
                 <BaseLayout>
                     <Nav/>
-                    {/*<VideoBg/>*/}
+                    {/*<Visuals/>*/}
 
                     <Content>
                         <Component {...pageProps} />

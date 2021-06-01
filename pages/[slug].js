@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 // import Link from "next/link";
 import {
@@ -60,6 +60,11 @@ export default function Post({data, posts}) {
 
     const isProjects = Boolean(slug === 'projects')
 
+
+    useEffect(()=> {
+if(!isProjects)   setSelectedItem('')
+
+    },[router])
     const selectItemHandler = (itemId) => {
         if (itemId && isProjects) {
             setSelectedItem(itemId)
@@ -91,14 +96,14 @@ export default function Post({data, posts}) {
             {/*}*/}
             <ContentText>
                 <ScrollWrapper>
-                    {!selectedItem && isMd &&
-                    <ImageContainer>
-                        <ImageWrapper style={{
-                            backgroundRepeat: ' no-repeat',
-                            backgroundSize: 'cover',
-                            background: `url(${imgUrl})`
-                        }}/>
-                    </ImageContainer>}
+                    {/*{!selectedItem && isMd &&*/}
+                    {/*<ImageContainer>*/}
+                    {/*    <ImageWrapper style={{*/}
+                    {/*        backgroundRepeat: ' no-repeat',*/}
+                    {/*        backgroundSize: 'cover',*/}
+                    {/*        background: `url(${imgUrl})`*/}
+                    {/*    }}/>*/}
+                    {/*</ImageContainer>}*/}
                     <Text>
                         <ListWrap>
                             {isProjects && allPosts.map((item) =>

@@ -3,6 +3,19 @@ import Link from "next/link";
 import {ContentList} from "@/components/ContentList";
 import {HomePage} from "../src/pages/HomePage";
 
+import dynamic from 'next/dynamic';
+
+const DynamicVisuals= dynamic(
+    () => import(
+        "../src/components/Visuals/Visuals"
+        ),
+    {
+        ssr: false,
+    }
+);
+
+
+
 export default function Home({posts}) {
     const allPosts = posts.nodes
     return (
@@ -11,12 +24,10 @@ export default function Home({posts}) {
             <title>JFR - home page</title>
             <link rel="icon" href="/favicon.ico" />
         </Head>
-
+        <DynamicVisuals/>
+        {/*<DynamicVisuals/>*/}
         <HomePage  data={allPosts}/>
-
         </>
-
-
         // <div className={styles.container}>
 
         //
